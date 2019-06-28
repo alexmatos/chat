@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const logConfig = require('./config/logConfig')
+const logConfig = require('./configs/logConfig')
 
 // VARIÁVEIS DE AMBIENTE
 require('dotenv').config({
@@ -20,12 +20,13 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 // BANCO DE DADOS
-mongoose.connect(process.env.DB_CONNECTION, {
-    useNewUrlParser: true
-})
+// mongoose.connect(process.env.DB_CONNECTION, {
+//     useNewUrlParser: true
+// })
 
 // ROTAS
-
+const routers = require('./routers')
+app.use('/api', routers)
 
 // TRATAMENTO DE ERRO
 app.use(logConfig.getErrorLogger())
@@ -38,5 +39,5 @@ app.use( (err, req, res, next) => {
     })
 })
 
-let port = process.env.port
+let port = process.env.PORT
 app.listen(port, () => console.log(`Aplicação rodando na porta: ${port}.`))
