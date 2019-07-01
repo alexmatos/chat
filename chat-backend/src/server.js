@@ -20,9 +20,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 // BANCO DE DADOS
-// mongoose.connect(process.env.DB_CONNECTION, {
-//     useNewUrlParser: true
-// })
+mongoose.connect(process.env.DB_CONNECTION, {
+    useNewUrlParser: true
+})
 
 // ROTAS
 const routers = require('./routers')
